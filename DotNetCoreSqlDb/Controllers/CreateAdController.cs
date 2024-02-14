@@ -52,6 +52,28 @@ namespace DotNetCoreSqlDb.Controllers
             SqlConnection con = new SqlConnection("Server=tcp:jhl-dbcentral.database.windows.net,1433;Initial Catalog=db_uccxWarehouse;Persist Security Info=False;User ID=sqlboss;Password=0%8SAB9b1QCQ3R2g;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             using (con)
             {
+                using (SqlCommand cmd = new SqlCommand("CheckSubmission"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@AdCode", PhoneAdCode);
+                    cmd.Parameters.AddWithValue("@OnSale", Date.ToShortDateString());
+                    con.Open();
+                    try
+                    {
+                        cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                    catch
+                    {
+                        con.Close();
+                        ViewBag.ProductPhoneBind = "Error! There is no record in the database containing the entered AdCode and Start Date. Please check values and try again";
+                        return View("BindPhone");
+                    }
+                }
+            }
+            using (con)
+            {
                 using (SqlCommand cmd = new SqlCommand("PostPhone"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -378,9 +400,9 @@ namespace DotNetCoreSqlDb.Controllers
                                     MediaTypeHeaderValue m = new MediaTypeHeaderValue("application/vnd.microsoft.card.adaptive");
                                     using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://journeyhl.webhook.office.com/webhookb2/af51916a-b4a6-49f3-a42b-07b1a3a1d8c6@474a556a-e9ae-49fd-9360-588b21aee670/IncomingWebhook/d39edada0ee74dff861e2ea2e1868800/dc440e51-2976-4d54-b6bd-1a80eb2507d6"))
                                     {
-                                        string message = "{'text':'<at>jjordan@journeyhl.com</at> A new Advertisement has been created in the AdPortal that requires a TFN. AdCode: " + AdCode + "'}";
+                                        string message = "{'text':'<at>gbrzovich@journeyhl.com</at> A new Advertisement has been created in the AdPortal that requires a TFN. AdCode: " + AdCode + "'}";
                    
-                                        string message2 = "{\"type\":\"message\",\"attachments\":[{\"contentType\":\"application/vnd.microsoft.card.adaptive\",\"content\":{\"type\":\"AdaptiveCard\",\"body\":[{\"type\":\"TextBlock\",\"size\":\"Large\",\"weight\":\"Bolder\",\"text\":\"New Advertisement needs TFN\"},{\"type\":\"TextBlock\", \"wrap\": \"true\",\"text\":\"Hi <at>Jake UPN</at>, a new Ad created through the AdPortal has been created and needs a Phone Number bound.\\n\\nAdCode: " + AdCode + "\\n\\nDisplay: " + (AdVersionProduct.ToUpper().Replace(" ", "") + " " + AdCategory.ToUpper() + " " + AdCode) + "\\n\\nChannel: " + AdCategory.ToUpper() + "\\n\\nDrop Date: " + Date.ToShortDateString() + "\\n\\nCisco Product: " + AdVersionProduct.ToUpper() + "\"}],\"$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",\"version\":\"1.0\",\"msteams\":{\"entities\":[{\"type\":\"mention\",\"text\":\"<at>Jake UPN</at>\",\"mentioned\":{\"id\":\"jjordan@journeyhl.com\",\"name\":\"Jake Jordan\"}}]}}}]}\r\n";
+                                        string message2 = "{\"type\":\"message\",\"attachments\":[{\"contentType\":\"application/vnd.microsoft.card.adaptive\",\"content\":{\"type\":\"AdaptiveCard\",\"body\":[{\"type\":\"TextBlock\",\"size\":\"Large\",\"weight\":\"Bolder\",\"text\":\"New Advertisement needs TFN\"},{\"type\":\"TextBlock\", \"wrap\": \"true\",\"text\":\"Hi <at>Gabe UPN</at>, a new Ad created through the AdPortal has been created and needs a Phone Number bound.\\n\\nAdCode: " + AdCode + "\\n\\nDisplay: " + (AdVersionProduct.ToUpper().Replace(" ", "") + " " + AdCategory.ToUpper() + " " + AdCode) + "\\n\\nChannel: " + AdCategory.ToUpper() + "\\n\\nDrop Date: " + Date.ToShortDateString() + "\\n\\nCisco Product: " + AdVersionProduct.ToUpper() + "\"}],\"$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",\"version\":\"1.0\",\"msteams\":{\"entities\":[{\"type\":\"mention\",\"text\":\"<at>Gabe UPN</at>\",\"mentioned\":{\"id\":\"gbrzovich@journeyhl.com\",\"name\":\"Gabriel Brzovich\"}}]}}}]}\r\n";
 
                                         // request.Content = new StringContent(message);
                                        request.Content = new StringContent(message2);

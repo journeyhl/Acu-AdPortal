@@ -4,7 +4,7 @@
 @model CreateAd
 @{
     <div style="text-align:center;">
-        <label style="font-size:XX-large; width:400px; margin-right:-50px;">Documentation</label>
+        <label style="font-size:XX-large; width:400px; margin-right:-50px;">Bind Phone Number</label>
     </div>
     @using (Html.BeginForm("BindPhoneSubmit", "CreateAd", FormMethod.Post, new { @style = "min-width:445px; align-self:center" }))
     {
@@ -32,8 +32,8 @@
                        onmouseout="mouseout(this)" />
             </div>
             <br>
-            <div class="container" style="text-align:center; align-content:center">
-                <label style="font-size:X-Large; color:Black;">@ViewBag.ProducthoneBind</label> <br>
+            <div class="container" style="text-align:center; align-content:center; min-width:445px; margin:0px">
+                <label style="font-size:Large; color:red; width:fit-content;margin:0px">@ViewBag.ProductPhoneBind</label> <br>
             </div>
         </div>
     }
