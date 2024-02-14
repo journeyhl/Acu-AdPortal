@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, height=100" />
+    <title>@ViewData["Title"] - JHL Ad Portal</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> 
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head> 
+<body>
+    <header style="align-items:center; min-width:1519px;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
+            <div class="container" style="align-items:center; width: fit-content">
+                <a style="color: #3B7CC8; font-size:X-large; align-items:center;  " id="BindPhone" asp-area="" asp-action="BindPhone">Bind Phone</a>
+                <div style="width:10px"></div>
+                <a class="navbar-brand" asp-area="" asp-controller="CreateAd" asp-action="Index" style="margin-left: auto; margin-right: auto; width: fit-content;" >
+                    <img src="@Url.Content("https://i.ibb.co/nQc93Qs/New-header.png")"  style="height:70px;" />
+                </a>
+                <div style="width:10px"></div>
+                <a style=" color: #3B7CC8; font-size:X-large;" id="faq" asp-area="" asp-action="FAQ">FAQ</a>
+            </div>
+            
+        </nav>
+    </header>
+    <div class="container" style="min-width:1519px;">
+        <main role="main" class="pb-3" style="min-height:650px; min-width:445px; width:445px; margin:0 auto;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" >
+        <div class="container" style="color:#3B7CC8; width: inherit">
+            Journey Health and Lifestyle Information Technology
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @*Custom AdCode Script*@
+    <script>
+        var checkbox = $("#trigger");
+        var hidden = $("#hidden_fields");
+        var txtAdCode1 = $("txtAdCode1");
+        var kcInternal = $("#kcInternal");
+        var kcExternal = $("#kcExternal");
+
+        // Hide the fields at FormLoad
+        hidden.hide();
+        const cb = document.querySelector('#trigger');
+        console.log(cb.checked);
+        checkbox.change(function () {
+            if (checkbox.is(':checked')) {
+                hidden.show();
+                kcExternal.hide();
+                kcInternal.hide();
+            } else {
+                hidden.hide();
+                kcExternal.show();
+                kcInternal.show();
+                $("#txtAdCode1").val("");
+            }
+        });
+        var internal = document.getElementById()
+
+
+       
+    </script>
+    
+    @*TFN Generation*@
+    <script>
+        var CheckPhone = $("#trigger1");
+        var hiddenPhone = $("#hiddenPhone");
+        var txtCheckPhone = $("#txtCheckPhone");
+        // Hide the fields at FormLoad
+        hiddenPhone.hide();
+        const cb1 = document.querySelector('#trigger1');
+        console.log(cb1.checked);
+        CheckPhone.change(function () {
+            if (CheckPhone.is(':checked')) {
+                hiddenPhone.show();
+                txtCheckPhone.text = "1";
+                $("#txtCheckPhone").val("1");
+            } else {
+                hiddenPhone.hide();
+                $("#txtCheckPhone").val("0");
+            }
+        });
+        var internal = document.getElementById()
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

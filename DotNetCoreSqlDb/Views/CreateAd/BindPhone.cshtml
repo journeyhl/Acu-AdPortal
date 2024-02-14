@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CreateAd
+@{
+    <div style="text-align:center;">
+        <label style="font-size:XX-large; width:400px; margin-right:-50px;">Documentation</label>
+    </div>
+    @using (Html.BeginForm("BindPhoneSubmit", "CreateAd", FormMethod.Post, new { @style = "min-width:445px; align-self:center" }))
+    {
+        <div class="container" style="min-width:445px; width:fit-content; align-content:center; align-self:center;">
+            <div class="container" style="min-width:445px;">
+                <label style="font-size:X-large; text-align:left; width:180px"><label style="font-size:X-large; color: #cb444a ">*</label>AdCode:</label>
+                @Html.TextBoxFor(m => m.PhoneAdCode, new{@id = "txtPhoneAdCode", @style = "width:220px;"})
+            </div>
+            <div class="container" style="min-width:445px;">
+                <label style="font-size:X-large; width:180px "><label style="font-size:X-large; color: #cb444a ">*</label>Phone Number:</label>
+                @Html.TextBoxFor(m => m.TFN, new{@type = "phone", @style = "width: 220px; margin-bottom: -100px;", @placeholder="804-568-7639", @id = "TFN"})
+                @Html.ValidationMessageFor(m => m.TFN, "" , new{@class= "text-danger", @style=""})
+            </div>
+            <div class="container" style="min-width:445px;">
+                <label style="font-size:X-large; width:180px "><label style="font-size:X-large; color: #cb444a ">*</label>Start Date:</label>
+                @Html.TextBoxFor(m => m.Date, new{@type = "date", @style = "width: 220px; margin-bottom: -100px;"})
+                @Html.ValidationMessageFor(m => m.Date, "" , new{@class= "text-danger", @style=""})
+            </div>
+            @*Submit button*@
+            <div class="container" style="text-align:center; align-content:center">
+                <input type="submit" id="btnSubmitPhone"
+                       style="background-image:url(https://i.ibb.co/9hVt59m/Submit.png); width:170px; height:40px;
+                border-radius:5px; border:1px solid #3B7CC8; background-position:center; color:transparent;"
+                       onmouseover="mouseover(this)"
+                       onmouseout="mouseout(this)" />
+            </div>
+            <br>
+            <div class="container" style="text-align:center; align-content:center">
+                <label style="font-size:X-Large; color:Black;">@ViewBag.ProducthoneBind</label> <br>
+            </div>
+        </div>
+    }
+}
